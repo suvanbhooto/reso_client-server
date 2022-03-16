@@ -1,4 +1,30 @@
 import socket
+import numpy as np
+from PIL import Image
+
+img_data = Image.open('img.jpg')
+img_arr = np.array(img_data)
+
+
+
+z =  len(img_arr)
+
+
+for i in img_arr.shape[1::-1]: # img.shape -> (width,height,channel)
+
+    if(i%2 == 0):
+
+    	msgFromServer= "pair"
+
+	
+
+
+    else:
+
+        msgFromServer= "impair"
+
+
+
 
  
 
@@ -9,8 +35,6 @@ localPort   = 12345
 bufferSize  = 1024
 
  
-
-msgFromServer       = "Hello UDP Client"
 
 bytesToSend         = str.encode(msgFromServer)
 
