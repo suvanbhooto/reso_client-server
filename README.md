@@ -3,6 +3,7 @@
 The goal of this project is to create a client-server application and set up a communication protocol between the two entities.
 On the server you have data(images), the client will ask the server to retrieve images.
 &nbsp;
+
 ----
 
 ## How to use the application
@@ -33,7 +34,9 @@ User datagram protocol (UDP) operates on top of the Internet Protocol (IP) to tr
 Since UDP avoids the overhead associated with connections, error checks and the retransmission of missing data, it’s suitable for real-time or high performance applications that don’t require data verification or correction. If verification is needed, it can be performed at the application layer.
 
 UDP is commonly used for Remote Procedure Call (RPC) applications, although RPC can also run on top of TCP. RPC applications need to be aware they are running on UDP, and must then implement their own reliability mechanisms.
+
 &nbsp;
+
 ---
 
 ## How to install the project
@@ -67,7 +70,6 @@ On server :
 On client :
 ~pyhton3 client.py
 ```
-&nbsp;
 
 
 
