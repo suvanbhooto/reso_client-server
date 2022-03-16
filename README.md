@@ -1,6 +1,6 @@
 # reso_client-server by Suvan Bhooto
 
-The goal of this project is to create a client-server application and setr up a communication protocol between the two entities.
+The goal of this project is to create a client-server application and set up a communication protocol between the two entities.
 On the server you have data(images), the client will ask the server to retrieve images.
 &nbsp;
 ----
