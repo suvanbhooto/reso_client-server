@@ -18,7 +18,7 @@ The client.py should be in the client.
 
 
 ### To run the application 
-1. Run the sever.py on the server
+1. Run the server.py on the server
 2. Enter the port you want to use(eg: 5005)
 3. Then run client.py on the client
 4. Enter the display the ip address display on the server
