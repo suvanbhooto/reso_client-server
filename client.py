@@ -1,33 +1,82 @@
 import socket
+import os
 
- 
+import numpy as np
+from PIL import Image
 
-msgFromClient       = "Hello UDP Server"
+class Client:
+    def __init__(self):
 
-bytesToSend         = str.encode(msgFromClient)
+        print(self)
+        self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        self.connect_to_server()
 
-serverAddressPort   = ("10.27.0.41", 12345)
+    def connect_to_server(self):
+        self.target_ip = input('Enter ip --> ')
+        self.target_port = input('Enter port --> ')
 
-bufferSize          = 1024
+        self.s.connect((self.target_ip,int(self.target_port)))
 
- 
+        self.main()
 
-# Create a UDP socket at client side
+    def reconnect(self):
+        self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        self.s.connect((self.target_ip,int(self.target_port)))
 
-UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    def main(self):
+        while 1:
+            file_name = input('Enter file name on server --> ')
 
- 
+            
 
-# Send to server using created UDP socket
+    
 
-UDPClientSocket.sendto(bytesToSend, serverAddressPort)
+            self.s.send(file_name.encode())
 
- 
+            confirmation = self.s.recv(1024)
+            if confirmation.decode() == "file-doesn't-exist":
+                print("File doesn't exist on server.")
 
-msgFromServer = UDPClientSocket.recvfrom(bufferSize)
+                self.s.shutdown(socket.SHUT_RDWR)
+                self.s.close()
+                self.reconnect()
 
- 
+            else:        
+                write_name = 'from_server_'+file_name
 
-msg = "Message from Server {}".format(msgFromServer[0])
 
-print(msg)
+
+
+
+                if os.path.exists(write_name): os.remove(write_name)
+
+                with open(write_name,'wb') as file:
+                    while 1:
+                        data = self.s.recv(1024)
+
+                        if not data:
+                            break
+
+                        file.write(data)
+
+                print(file_name,'successfully downloaded.')
+
+                img_data = Image.open(write_name)
+                img_arr = np.array(img_data)
+
+                z =  len(img_arr)
+                print(z)
+
+                for i in img_arr.shape[1::-1]:
+
+                    if(i%2 == 0):
+                        print("pair")
+
+                    else:
+                        print("impair")
+
+                self.s.shutdown(socket.SHUT_RDWR)
+                self.s.close()
+                self.reconnect()
+                
+client = Client()
